@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
-    public float detectionRange = 10f;
-    public float attackRange = 2f;
     public Transform player;
+    public float detectionRange = 10f;
+    public float attackRange = 4f;
+    public float timeBetweenAttacks = 1.5f;
+    public int damage = 10;
+
     private NavMeshAgent agent;
     private Animator animator;
+    private bool alreadyAttacked;
 
     void Start()
     {
@@ -23,8 +27,8 @@ public class Enemy : MonoBehaviour
         {
             agent.isStopped = true;
             animator.SetBool("isWalking", false);
-            animator.SetTrigger("Attack");
-            // Aqui você pode adicionar dano ao player se quiser
+
+
         }
         else if (distance <= detectionRange)
         {
@@ -39,3 +43,5 @@ public class Enemy : MonoBehaviour
         }
     }
 }
+
+    

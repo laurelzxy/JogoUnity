@@ -10,7 +10,11 @@ public class movimentoJogador : MonoBehaviour
     private bool estaNoChao;
     [SerializeField]private Transform pePlayer;
     [SerializeField]private LayerMask colisaoLayer;
+
     private float forcaY;
+
+   
+
 
 
     void Start()
@@ -22,7 +26,10 @@ public class movimentoJogador : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-   
+  
+
+
+
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -45,7 +52,7 @@ public class movimentoJogador : MonoBehaviour
 
         estaNoChao = Physics.CheckSphere(pePlayer.position, 0.3f, colisaoLayer);
 
-        animator.SetBool("EstaNoChao", estaNoChao);
+        animator.SetBool("EstarNoChao", estaNoChao);
 
         if (Input.GetKeyDown(KeyCode.Space) && estaNoChao)
         {
@@ -58,6 +65,8 @@ public class movimentoJogador : MonoBehaviour
         {
             forcaY += -9.81f * Time.deltaTime;
         }
+
+        
 
 
         controller.Move(new Vector3 (0, forcaY, 0) * Time.deltaTime);
