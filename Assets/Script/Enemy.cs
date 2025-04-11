@@ -5,7 +5,7 @@ public class EnemyAI : MonoBehaviour
 {
     public Transform player;
     public float detectionRange = 10f;
-    public float attackRange = 4f;
+    public float attackRange = 6f;
     public float timeBetweenAttacks = 1.5f;
     public int damage = 10;
 

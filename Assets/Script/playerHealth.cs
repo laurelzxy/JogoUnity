@@ -1,15 +1,12 @@
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    public float attackRange = 5f;
+    public float attackRange = 6f;
     public int damage = 10;
     public LayerMask enemyLayer;
 
     private Animator animator;
-
-
-
 
 
 
