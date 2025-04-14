@@ -1,18 +1,16 @@
 using UnityEngine;
-using System.Collections;
 
 public class MagicCrystal : MonoBehaviour
 {
-    public AudioClip pickupSound; // opcional
-    public ParticleSystem pickupEffect; // opcional
+    public AudioClip pickupSound; // Som opcional ao pegar o cristal
+    public ParticleSystem pickupEffect; // Efeito opcional ao pegar o cristal
 
-    // Upgrade de velocidade
+    // Upgrade de velocidade permanente
     public float bonusDeVelocidade = 10f;
-    public float duracaoDoBonus = 5f;
 
     void Update()
     {
-        transform.Rotate(0, 50 * Time.deltaTime, 0); // faz o cristal girar
+        transform.Rotate(0, 50 * Time.deltaTime, 0); // Faz o cristal girar
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,8 +21,14 @@ public class MagicCrystal : MonoBehaviour
             movimentoJogador player = other.GetComponent<movimentoJogador>();
             if (player != null)
             {
-                StartCoroutine(AplicarBonusDeVelocidade(player));
+                // Aplica bônus permanente
+                player.velocidadeAtual += bonusDeVelocidade;
 
+                // Ativa o efeito visual de buff, se existir
+                if (player.efeitoBuff != null)
+                    player.efeitoBuff.SetActive(true);
+
+                // Ativa a animação (se tiver)
                 Animator anim = player.GetComponent<Animator>();
                 if (anim != null)
                 {
@@ -44,16 +48,4 @@ public class MagicCrystal : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    IEnumerator AplicarBonusDeVelocidade(movimentoJogador player)
-    {
-        player.velocidadeAtual += bonusDeVelocidade;
-        Debug.Log(" Velocidade aumentada!");
-
-        yield return new WaitForSeconds(duracaoDoBonus);
-
-        player.velocidadeAtual = player.velocidadeBase;
-        Debug.Log(" Velocidade restaurada.");
-    }
 }
-

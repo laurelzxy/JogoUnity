@@ -10,6 +10,7 @@ public class movimentoJogador : MonoBehaviour
     [SerializeField] private Transform pePlayer;
     [SerializeField] private LayerMask colisaoLayer;
 
+
     private float forcaY;
 
     private int currentJumpCount = 0;
@@ -17,6 +18,10 @@ public class movimentoJogador : MonoBehaviour
 
     public float velocidadeBase = 5f;
     [HideInInspector] public float velocidadeAtual;
+    public GameObject efeitoBuff;
+
+
+  
 
     void Start()
     {
@@ -80,5 +85,15 @@ public class movimentoJogador : MonoBehaviour
         }
 
         controller.Move(new Vector3(0, forcaY, 0) * Time.deltaTime);
+
+        //void die()
+        //{
+        //    velocidadeAtual = velocidadeBase;
+
+        //    if (efeitoBuff != null)
+        //        efeitoBuff.SetActive(false);
+
+        //    // Outras coisas como animação de morte, desativar controle, etc.
+        //}
     }
 }
