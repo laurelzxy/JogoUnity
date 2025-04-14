@@ -20,8 +20,19 @@ public class movimentoJogador : MonoBehaviour
     [HideInInspector] public float velocidadeAtual;
     public GameObject efeitoBuff;
 
+    [SerializeField] private AudioSource passosAudioSouce;
+    [SerializeField] private AudioClip[] passosAudioClip;
 
-  
+    [SerializeField] private AudioSource AttackAudioSource;
+    [SerializeField] private AudioClip[] AttackAudioClips;
+
+    [SerializeField] private AudioSource JumpAudioSource;
+    [SerializeField] private AudioClip[] JumpAudioClip;
+
+
+
+
+
 
     void Start()
     {
@@ -95,5 +106,20 @@ public class movimentoJogador : MonoBehaviour
 
         //    // Outras coisas como animação de morte, desativar controle, etc.
         //}
+    }
+
+    private void Passos()
+    {
+        passosAudioSouce.PlayOneShot(passosAudioClip[Random.Range(0, passosAudioClip.Length)]);
+    }
+
+    private void Attack()
+    {
+        AttackAudioSource.PlayOneShot(AttackAudioClips[Random.Range(0, AttackAudioClips.Length)]);
+    }
+
+    private void Jump()
+    {
+        JumpAudioSource.PlayOneShot(JumpAudioClip[Random.Range(0, JumpAudioClip.Length)]);
     }
 }

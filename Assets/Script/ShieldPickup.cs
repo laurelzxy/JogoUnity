@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShieldPickup : MonoBehaviour
 {
     [Header("Som/efeito visual opcional")]
-    [SerializeField] GameObject pickupEffect;
+    public AudioClip pickupSound;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,8 +23,9 @@ public class ShieldPickup : MonoBehaviour
             shield.ActivateShield();
             Debug.Log("Escudo ativado!");
 
-            if (pickupEffect != null)
-                Instantiate(pickupEffect, transform.position, Quaternion.identity);
+            // Toca som (se tiver)
+            if (pickupSound != null)
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
 
             Destroy(gameObject);
         }

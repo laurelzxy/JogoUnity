@@ -13,6 +13,12 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private bool alreadyAttacked;
 
+
+    [SerializeField] private AudioSource passosAudioSouce;
+    [SerializeField] private AudioClip[] passosAudioClip;
+    
+       
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -42,6 +48,9 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
     }
+
+   
+    
 }
 
     
