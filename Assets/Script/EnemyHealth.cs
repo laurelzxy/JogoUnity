@@ -9,13 +9,13 @@ public class EnemyHealth : MonoBehaviour
 
 
     public int damageAmount = 10; // quanto de dano ele causa
-    public float attackCooldown = 1.5f; // tempo entre ataques
+    public float attackCooldown = 1f; // tempo entre ataques
     private float lastAttackTime;
 
     void Start()
     {
         currentHealth = maxHealth;
-        animator = GetComponent<Animator>(); // ✅ pegando Animator
+        animator = GetComponent<Animator>(); //  pegando Animator
     }
 
 
@@ -34,6 +34,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            Debug.Log("inimigo morreu");
         }
     }
 
@@ -59,6 +60,6 @@ public class EnemyHealth : MonoBehaviour
         isDead = true;
         Debug.Log("Inimigo morreu!");
         animator.SetTrigger("Death"); //  se tiver animação de morte
-        Destroy(gameObject, 3f); 
+        Destroy(gameObject, 2f); 
     }
 }

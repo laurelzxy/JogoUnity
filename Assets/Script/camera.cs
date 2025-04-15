@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraToggle : MonoBehaviour
 {
-    public CinemachineFreeLook freeLookCamera;
+    public CinemachineFreeLook freeLookCamera; 
     public bool disableMouseInput = true;
 
     void Start()

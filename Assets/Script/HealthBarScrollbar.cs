@@ -1,35 +1,49 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBarScrollbar : MonoBehaviour
 {
-    public Scrollbar scrollbar;
-    public float maxHealth = 100f;
-    private float currentHealth;
+    public Slider playerHealthBar;
+    public TextMeshProUGUI lifeText;
+
+    private playerAttack playerController;
+
+
+    public int totalCrystals = 0;
+    public TextMeshProUGUI crystalText;
 
     void Start()
     {
-        currentHealth = maxHealth;
-        UpdateHealthBar();
+        playerController = GetComponent<playerAttack>();
+        playerHealthBar.maxValue = Mathf.RoundToInt(playerController.maxHealth);
+        playerHealthBar.minValue = 0;
+        playerHealthBar.value = playerHealthBar.maxValue;
+        lifeText.text = playerHealthBar.maxValue + "%";
+
+        if (crystalText)
+        {
+            UpdateCrystalUI();
+        }
     }
 
-    public void TakeDamage(float damage)
+    public void UpdatePlayerHealthBar(int amount = 0)
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
+        if (amount <= 0) return;
+        
+        playerHealthBar.value = amount;
+        lifeText.text = amount + "%";
     }
 
-    public void Heal(float amount)
+    public void AddCrystal()
     {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
+        totalCrystals++;
+        UpdateCrystalUI();
+    }
+    void UpdateCrystalUI()
+    {
+        crystalText.text = "" + totalCrystals;
     }
 
-    void UpdateHealthBar()
-    {
-        scrollbar.size = currentHealth / maxHealth;
-    }
 }
 

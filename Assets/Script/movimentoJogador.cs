@@ -30,10 +30,6 @@ public class movimentoJogador : MonoBehaviour
     [SerializeField] private AudioClip[] JumpAudioClip;
 
 
-
-
-
-
     void Start()
     {
         controller = GetComponent<CharacterController>();

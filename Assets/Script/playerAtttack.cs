@@ -1,57 +1,79 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerAttack : MonoBehaviour
 {
-    public float attackRange = 6f;  // Distância do ataque
-    public int damage = 10;         // Dano do ataque
-    public LayerMask enemyLayer;    // Camada de inimigos
+    public float attackRange = 6f;
+    public int damage = 10;
+    public LayerMask enemyLayer;
 
     private Animator animator;
-    private bool isAttacking = false;  // Verifica se o jogador está atacando
+    private bool isAttacking = false;
+
+    private HealthBarScrollbar scroolBar;
 
     public bool estaInvencivel = false;
 
-    // === Invencibilidade ===
+    [Header("Vida do jogador")]
+    public float currentHealth;
+    public float maxHealth = 100;
+
     [Header("Invencibilidade")]
-    public GameObject escudoVisual;   // Objeto com partícula ou efeito visual do escudo
-    private ShieldCollision shield;   // Referência ao escudo
+    public GameObject escudoVisual;
+    private ShieldCollision shield;
 
-    // === VIDA DO PLAYER ===
-    public int maxHealth = 50;
-    private int currentHealth;
     private bool isDead = false;
-
-    // Referência ao script da UI (barra de vida)
-    public PlayerHealthUI playerHealthUI;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        scroolBar = GetComponent<HealthBarScrollbar>();
         currentHealth = maxHealth;
 
-        // Pega referência para o escudo (pode estar em um filho)
+        currentHealth = maxHealth;
+
         shield = GetComponentInChildren<ShieldCollision>();
     }
 
     void Update()
     {
-        // Verifica se o jogador apertou o botão de ataque
-        if (Input.GetButtonDown("Fire1") && !isAttacking) // Ou Input.GetKeyDown(KeyCode.Mouse0)
+        if (Input.GetButtonDown("Fire1") && !isAttacking)
         {
             Attack();
             animator.SetTrigger("Attack");
-            isAttacking = true;  // Marca que o jogador está atacando
+            isAttacking = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TakeDamage(50);
+            Debug.Log("dano");
+        }
+
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            Debug.Log("MORREU");
+        }
+
+
+        if (isDead)
+        {
+           // SceneManager.LoadScene("DeathScene");
+
+            Debug.Log("MORREU");
         }
     }
 
-    // === MÉTODO PARA RECEBER DANO ===
     public void TakeDamage(int amount)
     {
-        // Verifica se o jogador está invencível ou morto
         if (isDead || (shield != null && shield.IsShieldActive)) return;
 
         currentHealth -= amount;
+        scroolBar.UpdatePlayerHealthBar(Mathf.RoundToInt(currentHealth));
+
         Debug.Log("Player levou dano! Vida atual: " + currentHealth);
 
         if (animator != null)
@@ -59,16 +81,10 @@ public class playerAttack : MonoBehaviour
             animator.SetTrigger("Hit");
         }
 
-        // Atualiza a barra de vida do jogador
-        if (playerHealthUI != null)
-        {
-            playerHealthUI.TakeDamage(amount);  // Chama o método da barra de vida para atualizar
-        }
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        //if (currentHealth <= 0)
+        //{
+        //    Die();
+        //}
     }
 
     // === MÉTODO PARA ATACAR ===
@@ -102,9 +118,9 @@ public class playerAttack : MonoBehaviour
     // === MÉTODO DE MORTE ===
     void Die()
     {
-        isDead = true;
-        Debug.Log("Player morreu!");
-        animator.SetTrigger("Death");
+       // isDead = true;
+        //Debug.Log("Player morreu!");
+       // animator.SetTrigger("Death");
 
         // Aqui você pode desativar controles, mostrar tela de Game Over, etc
     }

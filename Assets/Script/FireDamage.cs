@@ -14,7 +14,7 @@ public class FireDamage : MonoBehaviour
             if (playerHealth != null)
             {
                 // Dano inicial
-                playerHealth.TakeDamage(1);
+                playerHealth.TakeDamage(10);
                 Debug.Log(" Dano inicial do fogo!");
                 playerInside = true;
             }
@@ -39,12 +39,12 @@ public class FireDamage : MonoBehaviour
 
     IEnumerator DanoContínuo(playerAttack playerHealth)
     {
-        int ciclos = 3; // 3 ciclos de 0.5s (total: 1.5 segundos)
+        int ciclos = 3;
 
         for (int i = 0; i < ciclos; i++)
         {
             yield return new WaitForSeconds(0.5f);
-            playerHealth.TakeDamage(1); // 0.5 de vida, mas seu método aceita só int. Usa 1 como substituto
+            playerHealth.TakeDamage(5);
             Debug.Log(" Dano contínuo de fogo (" + (i + 1) + "/3)");
         }
     }
