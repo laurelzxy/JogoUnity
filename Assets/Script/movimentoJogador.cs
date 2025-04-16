@@ -20,6 +20,9 @@ public class movimentoJogador : MonoBehaviour
     [HideInInspector] public float velocidadeAtual;
     public GameObject efeitoBuff;
 
+
+
+
     [SerializeField] private AudioSource passosAudioSouce;
     [SerializeField] private AudioClip[] passosAudioClip;
 

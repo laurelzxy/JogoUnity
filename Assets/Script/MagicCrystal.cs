@@ -15,6 +15,17 @@ public class MagicCrystal : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+
+        if (other.CompareTag("Player"))
+        {
+            PlayerAbilities abilities = other.GetComponent<PlayerAbilities>();
+            if (abilities != null)
+            {
+                abilities.hasFireAbility = true;
+            }
+        }
+
+
         if (other.CompareTag("Player"))
         {
             // Aumenta a velocidade do player
